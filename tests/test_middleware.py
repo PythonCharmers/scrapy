@@ -67,11 +67,11 @@ class MiddlewareManagerTest(unittest.TestCase):
     def test_methods(self):
         mwman = TestMiddlewareManager(M1(), M2(), M3())
         if six.PY2:
-            self.assertEqual([x.im_class for x in mwman.methods['open_spider']],
+            self.assertEqual([x.__self__.__class__ for x in mwman.methods['open_spider']],
                 [M1, M2])
-            self.assertEqual([x.im_class for x in mwman.methods['close_spider']],
+            self.assertEqual([x.__self__.__class__ for x in mwman.methods['close_spider']],
                 [M2, M1])
-            self.assertEqual([x.im_class for x in mwman.methods['process']],
+            self.assertEqual([x.__self__.__class__ for x in mwman.methods['process']],
                 [M1, M3])
         else:
             self.assertEqual([x.__self__.__class__ for x in mwman.methods['open_spider']],
